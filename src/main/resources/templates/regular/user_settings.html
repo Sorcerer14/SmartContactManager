@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	th:replace="regular/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card mr-4 ml-2">
+					<div class="card-body">
+					
+						<!-- Message -->
+						<div th:if="${session.message}"
+							th:classappend="${session.message.type}" class="alert"
+							role="alert">
+							<p class="text-center" th:text="${session.message.content}"></p>
+							<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+						</div>
+					
+							
+						<div class="container text-center">
+						
+							<h3 class="my-4">Change Password</h3>
+							<form action="" th:action="@{/user/change-password}"
+								method="post">
+
+								<!-- old password -->
+								<div class="form-group">
+									<div class="input-group" id="show_hide_password">
+										<input class="form-control" type="password" name="oldPassword" placeholder="Old Password">
+										<div class="input-group-append">
+											<div class="input-group-text mr-3">
+												<a href=""><i style="color: #333" class="fa fa-eye-slash"></i></a>
+											</div>
+										</div>
+									</div>
+									
+									<!-- new password -->
+									<div class="input-group mt-3" id="show_hide_password">
+										<input class="form-control" type="password" name="newPassword" placeholder="New Password">
+										<div class="input-group-append">
+											<div class="input-group-text mr-3">
+												<a href=""><i style="color: #333" class="fa fa-eye-slash"></i></a>
+											</div>
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<div class="container text-center">
+
+									<button type="submit" class="btn btn-success">Change</button>
+									<button type="reset" class="btn btn-warning">Reset</button>
+
+								</div>
+
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(() => {
+				$("#settings-link").addClass("active");
+			});
+		</script>
+	</section>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+
+<head>
+	<meta charset="UTF-8" />
+	<title>Signup Page</title>
+</head>
+
+<body>
+	<section class="form-v5">
+		<div class="page-content form-v5">
+			<div class="form-v5-content">
+				<div class="container-fluid">
+				<form class="form-detail" action="" th:action="@{/do_register}" enctype="multipart/form-data" method="post" th:object="${user}">
+					
+					<!-- Message -->
+					<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert" role="alert">
+					  <p class="text-center" th:text="${session.message.content}"></p>
+					  <th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					</div>
+					
+					<h2>Register Account Form</h2>
+					<div class="form-group">
+						<label for="full-name">Full Name</label>
+						<input required type="text" th:value="${user.name}" name="name" id="name" class="form-control input-text" 
+						th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}"
+						placeholder="Your Name">
+						<div class="invalid-feedback" th:each="e: ${#fields.errors('name')}" th:text="${e}"></div>
+					</div>
+					<div class="form-group">
+						<label for="your-email">Your Email</label>
+						<input required type="email" th:value="${user.email}" name="email" id="email" class="form-control input-text" 
+						th:classappend="${#fields.hasErrors('email') ? 'is-invalid':''}"
+						placeholder="Your Email">
+						<div class="invalid-feedback" th:each="e: ${#fields.errors('email')}" th:text="${e}"></div>
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input required type="password" name="password" id="password" autocomplete="off" class="form-control input-text"
+						th:classappend="${#fields.hasErrors('password') ? 'is-invalid':''}"
+						placeholder="Your Password">
+						<div class="invalid-feedback" th:each="e: ${#fields.errors('password')}" th:text="${e}"></div>
+					</div>
+					<div class="form-group">
+						<label for="dob">Date Of Birth</label>
+						<input required th:value="${user.dob}" type="date" name="dob" id="dob" class="form-control input-text" 
+						th:classappend="${#fields.hasErrors('dob') ? 'is-invalid':''}">
+						<div class="invalid-feedback" th:each="e: ${#fields.errors('dob')}" th:text="${e}"></div>
+					</div>
+					<div class="form-group">
+						<textarea th:value="${user.about}" name="about" id="mytextarea" placeholder="Enter somthing about yourself" cols="70" rows="10" class="input-text"></textarea>
+					</div>
+					<!-- Image -->
+					<!-- <input type="file" name="profileImage"> -->
+					<div class="form-group mt-3">
+						  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+						
+						  <div class="image-upload-wrap">
+						    <input class="file-upload-input" type='file' name="profileImage" onchange="readURL(this);" accept="image/*"  />
+						    <div class="drag-text">
+						      <h3>Drag and drop a file or select add Image</h3>
+						    </div>
+						  </div>
+						  
+						  <div class="file-upload-content">
+						    <img class="file-upload-image"/>
+						    <div class="image-title-wrap">
+						      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+						    </div>
+						  </div>
+					</div>
+					
+					<div class="form-group text-center mt-5">
+						<button type="submit" class="btn btn-primary btn-lg text-white mr-3">Register</button>
+						<button type="reset" class="btn btn-warning btn-lg text-white">Reset</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(() => {
+				$("#signup-link").addClass("active");
+			});
+		</script>
+	</section>
+</body>
+</html>

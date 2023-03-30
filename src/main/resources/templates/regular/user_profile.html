@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	th:replace="regular/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section>
+		<div class="card mr-4 ml-2">
+			<div class="card-body">
+				
+				<!-- Message -->
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}" class="alert"
+					role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				
+				<div class="container table-responsive">
+					<img style="height: 150px; width: 150px"
+						class="my-profile-picture ml-5" src=""
+						th:src="@{'/img/'+${user.imageUrl}}" alt="profile picture" />
+					<h3 class="text-center mt-3">
+						<span th:text="${user.name}"></span>
+					</h3>
+					<div class="table-responsive">
+						<table class="table table-striped">
+							<tbody>
+								<tr>
+									<th scope="col">#Id</th>
+									<th><span th:text="'SCMUSER'+${user.id}"></span></th>
+								</tr>
+								<tr>
+									<th scope="col">Email</th>
+									<th><span th:text="${user.email}"></span></th>
+								</tr>
+								<tr>
+									<th scope="col">Birthday</th>
+									<th><span th:text="${user.dob}"></span></th>
+								</tr>
+								<tr>
+									<th scope="col">Account</th>
+									<th><span
+										th:class="${user.status ? 'text-success' : 'text-danger'}"
+										th:text="${user.status ? 'Active' : 'Deactivated'}"></span></th>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="contact-description text-center mt-3">
+						<th:block th:utext="${user.about}"></th:block>
+					</div>
+					<!-- Submit -->
+					<div class="container text-center mt-3">
+						<a th:href="@{/user/user-update}" class="btn btn-primary">Update</a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<script>
+			$(document).ready(() => {
+				$("#profile-link").addClass("active");
+			});
+		</script>
+		
+	</section>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org"
+	th:replace="regular/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section>
+		<div class="card mr-4 ml-2">
+			<div class="card-body">
+				
+				<div th:if="${session.message}"
+					th:classappend="${session.message.type}" class="alert"
+					role="alert">
+					<p class="text-center" th:text="${session.message.content}"></p>
+					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+				</div>
+				
+				<h1 class="text-center">Update Your Contact</h1>
+				<div class="container-fluid mt-1">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+							<form novalidate action="#" th:object="${contact}"
+								enctype="multipart/form-data" method="POST" class="mt-2"
+								th:action="@{/user/process-update}">
+
+								
+								<input type="hidden" name="contact_Id" th:value="${contact.contact_Id}" />
+								
+								<!-- First Name -->
+								<div class="input-group">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-user"></i>
+										</div>
+									</div>
+
+									<input required type="text" th:value="${contact.name}"
+										id="firstName" name="name" placeholder="Enter your First Name"
+										class="form-control"
+										th:classappend="${#fields.hasErrors('name') ? 'is-invalid':''}">
+
+									<div class="invalid-feedback ml-custom"
+										th:each="e: ${#fields.errors('name')}" th:text="${e}"></div>
+								</div>
+
+								<!-- Second Name -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-plus"></i>
+										</div>
+									</div>
+
+									<input type="text" th:value="${contact.secondName}"
+										id="secondName" name="secondName"
+										placeholder="Enter your Nickname" class="form-control">
+								</div>
+
+
+								<!-- Phone Name -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-phone"></i>
+										</div>
+									</div>
+
+									<input required type="text" th:value="${contact.phone}"
+										id="phone" name="phone" placeholder="Enter your Phone Number"
+										class="form-control"
+										th:classappend="${#fields.hasErrors('phone') ? 'is-invalid':''}">
+
+									<div class="invalid-feedback ml-custom"
+										th:each="e: ${#fields.errors('phone')}" th:text="${e}"></div>
+								</div>
+
+								<!-- Email Name -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-envelope"></i>
+										</div>
+									</div>
+
+									<input type="email" th:value="${contact.email}" id="email"
+										name="email" placeholder="Enter your Email "
+										class="form-control"
+										th:classappend="${#fields.hasErrors('email') ? 'is-invalid':''}">
+
+									<div class="invalid-feedback ml-custom"
+										th:each="e: ${#fields.errors('email')}" th:text="${e}"></div>
+								</div>
+
+								<!-- Work -->
+								<div class="input-group mt-3">
+									<div class="input-group-prepend">
+										<div class="input-group-text mr-3">
+											<i class="fa fa-briefcase"></i>
+										</div>
+									</div>
+
+									<input type="text" th:value="${contact.work}" id="work"
+										name="work" placeholder="Enter your Work Place"
+										class="form-control">
+								</div>
+
+								<!-- Desc -->
+								<div class="form-group mt-3">
+									<textarea placeholder="Enter your Description"
+										th:text="${contact.description}" id="mytextarea"
+										name="description" class="form-control" rows=20></textarea>
+								</div>
+
+								<!-- Image -->
+								<div class="container">
+									<input type="hidden" name="image" th:value="${contact.image}" />
+									<img style="height: 150px; width: 150px;" class="img-fluid my-profile-picture" src="" th:src="@{'/img/'+${contact.image}}" alt="" />
+								</div>
+								
+								<div class="file-upload">
+									  <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Image</button>
+									
+									  <div class="image-upload-wrap">
+									    <input class="file-upload-input" type='file' name="profileImage" onchange="readURL(this);" accept="image/*"  />
+									    <div class="drag-text">
+									      <h3>Drag and drop a file or select add Image</h3>
+									    </div>
+									  </div>
+									  
+									  <div class="file-upload-content">
+									    <img class="file-upload-image"/>
+									    <div class="image-title-wrap">
+									      <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+									    </div>
+									  </div>
+								</div>
+
+								<!-- Submit -->
+								<div class="container text-center mt-4">
+									<button class="btn btn-outline-primary">Submit</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(document).ready(() => {
+				$("#show-contact-link").addClass("active");
+			});
+		</script>
+	</section>
+</body>
+</html>
