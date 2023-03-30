@@ -72,7 +72,7 @@ public class HomeController {
 			session.setAttribute("message", new Message("Something went wrong !!", "alert-danger"));
 		}
 		finally {
-			//System.gc();
+			System.gc();
 		}
 		
 		model.setViewName("redirect:/user/index");
