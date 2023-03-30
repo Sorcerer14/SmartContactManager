@@ -67,7 +67,7 @@ public class UserController /*implements ErrorController*/ {
 			return "redirect:/user/user-update";
 		}
 		finally {
-			System.gc();
+			//System.gc();
 		}
 		
 		return "redirect:/user/profile";
@@ -105,7 +105,7 @@ public class UserController /*implements ErrorController*/ {
 			return "redirect:/user/add-contact";
 		}
 		finally {
-			System.gc();
+			//System.gc();
 		}
 			
 		return "redirect:/user/"+id+"/contact-details";
@@ -188,7 +188,7 @@ public class UserController /*implements ErrorController*/ {
 			session.setAttribute("message", new Message("Contact Cannot Be Updated, Please Try Again!!", "alert-success"));
 		}
 		finally {
-			System.gc();
+			//System.gc();
 		}
 		
 		return "redirect:/user/"+contact.getContact_Id()+"/contact-details";
