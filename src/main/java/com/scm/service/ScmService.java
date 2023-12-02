@@ -24,10 +24,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.scm.business.bean.ContactBean;
 import com.scm.business.bean.UserBean;
-import com.scm.dao.ContactEntityDAO;
-import com.scm.dao.UserEntityDAO;
 import com.scm.entity.ContactEntity;
 import com.scm.entity.UserEntity;
+import com.scm.repository.ContactEntityDAO;
+import com.scm.repository.UserEntityDAO;
 
 
 @Service
@@ -120,10 +120,10 @@ public class ScmService {
 	}
 	
 	public UserBean getUserByUsername(String email) {
-		UserEntity userEntity=userDao.getUserByUserName(email);
+		Optional<UserEntity> userEntity=userDao.getUserByUserName(email);
 		UserBean result=null;
-		if(userEntity!=null) {
-			result=modelMapper.map(userEntity, UserBean.class);
+		if(userEntity.isPresent()) {
+			result=modelMapper.map(userEntity.get(), UserBean.class);
 		}
 		return result;
 	}

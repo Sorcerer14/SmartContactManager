@@ -53,7 +53,7 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/do_register", method= RequestMethod.POST)
-	public ModelAndView userRegistration(@Valid @ModelAttribute("user") UserBean userBean, BindingResult result, HttpSession session, @RequestParam("profileImage") MultipartFile file) {
+	public ModelAndView userRegistration(@Valid @ModelAttribute("user") UserBean userBean, BindingResult result, HttpSession session, @RequestParam(name = "profileImage", required = true) MultipartFile file) {
 		//System.out.println("Error "+result.toString());
 		//System.out.println(userBean);
 		if(result.hasErrors()) {

@@ -11,7 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class UserBean {
 	private int id;
 	@NotBlank(message="User name must not be Empty !!")
-	@Size(min=3, max=12, message="User name must be between 3-12 characters" )
+	@Size(min=3, max=50, message="User name must be between 3-50 characters" )
 	private String name;
 	@Email(regexp="^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="Must be well formed email address")
 	private String email;

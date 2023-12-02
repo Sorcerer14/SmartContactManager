@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-
 import com.bastiaanjansen.otp.HMACAlgorithm;
 import com.bastiaanjansen.otp.SecretGenerator;
 import com.bastiaanjansen.otp.TOTPGenerator;
@@ -21,7 +20,7 @@ import com.scm.service.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
-public class ScmConfig{
+class ScmConfig{
 	
 	@Bean
 	public UserDetailsService getUserDetailService() {
@@ -48,7 +47,7 @@ public class ScmConfig{
 		http.authorizeHttpRequests()
 		.antMatchers("/admin/**").hasRole("ADMIN")
 		.antMatchers("/user/**").hasRole("USER")
-		.antMatchers("/**").permitAll().and().formLogin().loginPage("/signin").and().csrf().disable();
+		.antMatchers("/**").permitAll().and().formLogin().loginPage("/signin").defaultSuccessUrl("/user/index").and().csrf().disable();
 		
 		
 		return http.build();
